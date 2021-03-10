@@ -1,0 +1,55 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name SwiftCTRLSDK
+import Combine
+import CryptoKit
+import Foundation
+import Swift
+@_exported import SwiftCTRLSDK
+import UIKit
+public struct ApiSystemTokenResponse : Swift.Codable {
+  public let system_access_token: Swift.String
+  public let refresh_token: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public enum HTTPError : Swift.Error, Foundation.LocalizedError {
+  case badRequest(description: Swift.String?)
+  case unauthorized(description: Swift.String?)
+  case notFound(description: Swift.String?)
+  case serverError(description: Swift.String?)
+  case unprocessableRequest(description: Swift.String?)
+  case unknown(description: Swift.String?)
+}
+public struct ApiUserPublicKeyResponse : Swift.Codable {
+  public let userToken: Swift.String
+  public let userTokenExpires: Foundation.Date
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct APIVersionResponse : Swift.Codable {
+  public let version: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public protocol SwiftCtrlObserver : AnyObject {
+  @objc func didFinishInitialization()
+  @objc func reportError(error: Foundation.NSError)
+  @objc optional func didReceiveQRCode(qrView: UIKit.UIImageView)
+  @objc optional func didReceiveQRCode(qrBase64Image: Swift.String)
+  @objc optional func didReceiveQRCode(qrBytesArray: [Swift.UInt8])
+}
+@_inheritsConvenienceInitializers @objc public class SwiftCtrl : ObjectiveC.NSObject {
+  @objc public static let shared: SwiftCTRLSDK.SwiftCtrl
+  @objc public func initialize(with userToken: Swift.String, delegate: SwiftCTRLSDK.SwiftCtrlObserver)
+  @objc public func registerForQRCode(userToken: Swift.String)
+  @objc public func unregisterForQRCode(userToken: Swift.String)
+  @objc public func disconnect()
+  @objc deinit
+  @objc override dynamic public init()
+}
+public struct ApiUserTokenResponse : Swift.Codable {
+  public let userId: Swift.Int
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}

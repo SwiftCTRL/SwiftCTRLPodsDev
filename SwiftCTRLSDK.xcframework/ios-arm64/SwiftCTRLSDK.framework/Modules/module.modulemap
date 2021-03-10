@@ -1,0 +1,11 @@
+framework module SwiftCTRLSDK {
+  umbrella header "SwiftCTRLSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module SwiftCTRLSDK.Swift {
+    header "SwiftCTRLSDK-Swift.h"
+    requires objc
+}
